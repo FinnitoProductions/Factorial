@@ -19,7 +19,7 @@
    (bind ?returnVal ?FACTORIAL_OF_ZERO)
    (bind ?castedN (isWholeNumber ?n))
 
-   (if (eq ?castedN FALSE) then (bind ?returnVal "The factorial function must take in a positive integer.")
+   (if (eq ?castedN FALSE) then (bind ?returnVal "The factorial function must take in a whole number.")
     else (if (not (= ?castedN 0)) then (bind ?returnVal (* ?castedN (fact (- ?n 1))))
          )
    )
