@@ -29,7 +29,7 @@
 * Determines whether a number is a positive integer.
 */
 (deffunction isPositiveInteger (?n)
-   (return (and (numberp (+ ?n 0)) (> ?n 0) (= integer(?n) ?n)))
+   (return (and (numberp ?n) (>= ?n 0) (= (integer ?n) ?n)))
 )
 
-(printline (fact (askline "Enter the number of which you'd like to determine the factorial: ")))
+(printline (fact (ask "Enter the number of which you'd like to determine the factorial: ")))
