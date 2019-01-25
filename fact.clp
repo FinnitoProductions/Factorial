@@ -9,6 +9,7 @@
 */
 
 (batch util/utilities.clp)
+(import jess.JessException)
 
 (bind ?FACTORIAL_OF_ZERO 1)
 
@@ -19,7 +20,7 @@
    (bind ?returnVal ?FACTORIAL_OF_ZERO)
    (bind ?castedN (isWholeNumber ?n))
 
-   (if (eq ?castedN FALSE) then (bind ?returnVal "The factorial function must take in a whole number.")
+   (if (eq ?castedN FALSE) then (throw (new JessException "fact" "The input must be a whole number >= " 0))
     else (if (not (= ?castedN 0)) then (bind ?returnVal (* ?castedN (fact (- ?n 1))))
          )
    )
