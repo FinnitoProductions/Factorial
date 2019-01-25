@@ -37,7 +37,7 @@
    (if (and (numberp ?n) (>= ?n 0) (= (integer ?n) ?n)) then (bind ?returnVal (long ?n))
    )
 
-   (return ?returnVal) 
+   (return ?returnVal) ; if ?n is not a whole number, false will be returned; if valid, the ?n will be casted to a long and returned
 )
 
 (printline (fact (ask "Enter the number of which you'd like to determine the factorial: ")))
