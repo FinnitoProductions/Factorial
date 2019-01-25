@@ -2,9 +2,10 @@
 * Finn Frankis
 * January 24, 2019
 *
-* Includes several useful functions for finding the factorial of a typecasted number using user input.
+* Includes functionality for finding the factorial of a number using user input with input validation.
 *
 * fact - determines the factorial of a number
+* isWholeNumber - determines whether a number is a positive
 */
 
 (batch util/utilities.clp)
@@ -17,7 +18,7 @@
 (deffunction fact (?n)
    (bind ?returnVal ?FACTORIAL_OF_ZERO)
 
-   (if (not (isPositiveInteger ?n)) then (bind ?returnVal "The factorial function must take in a positive integer.")
+   (if (not (isWholeNumber ?n)) then (bind ?returnVal "The factorial function must take in a positive integer.")
     else (if (not (= ?n 0)) then (bind ?returnVal (* ?n (fact (- ?n 1))))
          )
    )
@@ -26,9 +27,9 @@
 )
 
 /*
-* Determines whether a number is a positive integer.
+* Determines whether a given parameter is a whole number.
 */
-(deffunction isPositiveInteger (?n)
+(deffunction isWholeNumber (?n)
    (return (and (numberp ?n) (>= ?n 0) (= (integer ?n) ?n)))
 )
 
