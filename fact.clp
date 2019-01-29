@@ -17,21 +17,18 @@
 (bind ?FACTORIAL_BASE_INPUT 0)
 
 (bind ?FACTORIAL_METHOD_NAME "fact")
-(bind ?INVALID_INPUT_ERROR_MESSAGE "The input must be a whole number >=")
-(bind ?INVALID_INPUT_EXCEPTION (new JessException ?FACTORIAL_METHOD_NAME ?INVALID_INPUT_ERROR_MESSAGE ?FACTORIAL_BASE_INPUT))
+(bind ?INVALID_INPUT_ERROR_MESSAGE "The input must be a whole number >= 0. Please try again.")
 
 (bind ?FACTORIAL_REQUEST_MESSAGE "Enter the number of which you would like to determine the factorial: ")
 
 /*
-* Returns the factorial of a given nonnegative integer ?n;
-* throws a JessException if the input does not meet this requirement.
+* Returns the factorial of a given nonnegative integer value ?n.
+* Throws a JessException if the input does not meet this requirement.
 */
 (deffunction fact (?n)
    (bind ?returnVal ?FACTORIAL_OF_ZERO) ; in the base case, the factorial of zero will be returned 
-   (bind ?castedN (isWholeNumber ?n))   ; FALSE if invalid input, ?n casted to a long if valid input
 
-   (if (eq ?castedN FALSE) then (throw ?INVALID_INPUT_EXCEPTION)
-    elif (not (= ?castedN ?FACTORIAL_BASE_INPUT)) then (bind ?returnVal (* ?castedN (fact (-- ?castedN)))) ; recursive call
+   (if (not (= ?n ?FACTORIAL_BASE_INPUT)) then (bind ?returnVal (* ?n (fact (-- ?n)))) ; recursive call
    )
 
    (return ?returnVal)
@@ -58,7 +55,15 @@
 * The user should input a whole number; otherwise, a JessException will be thrown.
 */
 (deffunction askFact ()
-   (return (fact (ask ?FACTORIAL_REQUEST_MESSAGE)))
+   (bind ?userInput (ask ?FACTORIAL_REQUEST_MESSAGE))
+   (bind ?validatedInput (isWholeNumber ?userInput)) ; FALSE if invalid input, ?n casted to a long if valid input
+   (bind ?returnVal -1)
+
+   (if (eq ?validatedInput FALSE) then (printline ?INVALID_INPUT_ERROR_MESSAGE) (bind ?returnVal (askFact))
+    else (bind ?returnVal (fact ?validatedInput))
+   )
+
+   (return ?returnVal)
 ) ; askFact () 
 
 (printline (askFact))
