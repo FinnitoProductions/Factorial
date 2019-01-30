@@ -1,3 +1,5 @@
+(batch util/utilities.clp)
+
 /* 
 * Finn Frankis
 * January 24, 2019
@@ -8,8 +10,6 @@
 * isWholeNumber - determines whether an input is a whole number; if so, it will return the number as a long, otherwise FALSE
 * askFact - requests for user input and returns the factorial of that input; if invalid, will prompt again
 */
-
-(batch util/utilities.clp)
 
 (bind ?FACTORIAL_OF_ZERO 1)
 (bind ?FACTORIAL_BASE_INPUT 0)
