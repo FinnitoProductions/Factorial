@@ -1,22 +1,20 @@
-(batch util/utilities.clp)
-
 /* 
 * Finn Frankis
 * January 24, 2019
 *
-* Includes functionality for finding the factorial of a number using user input with input validation.
+* Finds the factorial of a nonnegative integer using user input with input validation.
 *
 * fact - determines the factorial of a whole number
 * isWholeNumber - determines whether an input is a whole number; if so, it will return the number as a long, otherwise FALSE
 * askFact - requests for user input and returns the factorial of that input; if invalid, will prompt again
 */
 
+(batch util/utilities.clp)
+
 (bind ?FACTORIAL_OF_ZERO 1)
-(bind ?FACTORIAL_BASE_INPUT 0)
+(bind ?FACTORIAL_BASE_INPUT 0) ; base-case condition for factorial function
 
-(bind ?FACTORIAL_METHOD_NAME "fact")
 (bind ?INVALID_INPUT_ERROR_MESSAGE "The input must be a whole number >= 0. Please try again.")
-
 (bind ?FACTORIAL_REQUEST_MESSAGE "Enter the number of which you would like to determine the factorial: ")
 
 /*
@@ -24,8 +22,8 @@
 * ?n should be a nonnegative integer value.
 */
 (deffunction fact (?n)
-   (if (not (= ?n ?FACTORIAL_BASE_INPUT)) then (bind ?returnVal (* ?n (fact (-- ?n)))) ; recursive call
-    else (bind ?returnVal ?FACTORIAL_OF_ZERO) ; in the base case, the factorial of zero will be returned 
+   (if (not (= ?n ?FACTORIAL_BASE_INPUT)) then (bind ?returnVal (* ?n (fact (-- ?n))))
+    else (bind ?returnVal ?FACTORIAL_OF_ZERO) 
    )
 
    (return ?returnVal)
@@ -39,8 +37,8 @@
    (bind ?isValidInput (and (numberp ?n) (>= ?n 0) (= (integer ?n) ?n))) ; must be a positive number without fractional part
    (bind ?isLong (longp ?n))
 
-   (if (and ?isValidInput ?isLong) then (bind ?returnVal ?n)             ; if ?n is valid and already a long, do not cast 
-    elif ?isValidInput then (bind ?returnVal (long ?n))                  ; if ?n is not already a long but still valid, cast
+   (if (and ?isValidInput ?isLong) then (bind ?returnVal ?n) 
+    elif ?isValidInput then (bind ?returnVal (long ?n))       
     else (bind ?returnVal FALSE)                                         ; if ?n is not a whole number, return false
    )                                                                     
 
