@@ -1,5 +1,5 @@
 # Factorial
-January 24, 2019
+Code for the factorial project in my expert systems class.
 
 Includes functionality for finding the factorial of a number using user input with input validation.
 
